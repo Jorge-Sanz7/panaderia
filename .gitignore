@@ -1,0 +1,12 @@
+# Carpetas de dependencias y archivos innecesarios de Node
+/node_modules
+/npm-debug.log
+package-lock.json
+
+# Archivos de configuración y seguridad
+.env
+*.log
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db

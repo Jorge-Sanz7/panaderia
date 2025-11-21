@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario | Panadería desezperanza (ADMIN)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Barra de Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Panadería desezperanza</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="nav-actions">
+                    <!-- Las acciones de navegación (ej. Cerrar Sesión) se llenarán con JS -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <h1 class="mb-4 text-primary">Administración de Inventario (Solo Admin)</h1>
+        
+        <!-- Contenedor para mensajes de notificación/error -->
+        <div id="alert-container" class="mb-3">
+            <!-- Aquí se mostrarán las alertas de éxito o error dinámicamente -->
+        </div>
+
+        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#productoModal" onclick="resetForm()">
+            🍞 Agregar Nuevo Pan
+        </button>
+
+        <!-- Tabla de Inventario -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Stock</th>
+                        <th>Precio ($)</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="inventario-body">
+                    <!-- Los productos se cargarán aquí -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal para Agregar/Editar Producto -->
+    <div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productoModalLabel">Formulario de Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- El atributo enctype="multipart/form-data" es CRUCIAL para enviar archivos -->
+                    <form id="productoForm" enctype="multipart/form-data">
+                        <input type="hidden" id="producto-id" name="producto-id">
+                        
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre del Pan</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="stock" class="form-label">Stock</label>
+                            <input type="number" class="form-control" id="stock" name="stock" required min="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Precio ($)</label>
+                            <input type="number" class="form-control" id="precio" name="precio" required min="0.01" step="0.01">
+                        </div>
+
+                        <!-- Campo para subir archivo -->
+                        <div class="mb-3">
+                            <label for="imagen_file" class="form-label">Subir Imagen (Archivo)</label>
+                            <input type="file" class="form-control" id="imagen_file" name="imagen_file" accept="image/*">
+                            <small class="form-text text-muted">Si sube un archivo, la URL será ignorada.</small>
+                        </div>
+
+                        <!-- Campo alternativo para URL de imagen -->
+                        <div class="mb-3">
+                            <label for="imagen_url" class="form-label">Opcional: URL Imagen</label>
+                            <input type="text" class="form-control" id="imagen_url" name="imagen_url">
+                            <small class="form-text text-muted">Use esto solo si no sube un archivo.</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Usaremos un script dedicado para la gestión del inventario -->
+    <script src="js/inventario.js"></script> 
+    <script src="js/auth.js"></script>
+</body>
+</html>
